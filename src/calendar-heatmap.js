@@ -50,7 +50,7 @@ function calendarHeatmap() {
 
   function chart() {
 
-    d3.selectAll('.calendar-heatmap').remove(); // remove the existing chart, if it exists
+    d3.selectAll(selector + ' .calendar-heatmap').remove(); // remove the existing chart, if it exists
 
     var dateRange  = d3.time.days(startDate, endDate);
     var monthRange = d3.time.months(moment(startDate).startOf('month').toDate(), endDate); // it ignores the first month if the 1st date is after the start of the month
