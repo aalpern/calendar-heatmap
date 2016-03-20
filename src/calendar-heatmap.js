@@ -15,6 +15,7 @@ function calendarHeatmap() {
   var data = [];
   var colorRange = ['#e6e6e6', '#218083'];
   var tooltipEnabled = true;
+  var emptyColor = '#f6f6f6';
 
   // setters and getters
   chart.data = function (value) {
@@ -41,6 +42,12 @@ function calendarHeatmap() {
     colorRange = value;
     return chart;
   };
+
+  chart.emptyColor = function(value) {
+    if (!arguments.length) { return emptyColor; }
+    emptyColor = value;
+    return chart;
+  }
 
   chart.tooltipEnabled = function (value) {
     if (!arguments.length) { return tooltipEnabled; }
@@ -82,7 +89,7 @@ function calendarHeatmap() {
       .attr('class', 'day-cell')
       .attr('width', SQUARE_LENGTH)
       .attr('height', SQUARE_LENGTH)
-      .attr('fill', 'gray')
+      .attr('fill', emptyColor)
       .attr('x', function (d, i) {
         var cellDate = moment(d);
         var result = cellDate.week() - firstDate.week() + (firstDate.weeksInYear() * (cellDate.weekYear() - firstDate.weekYear()));
