@@ -1,26 +1,26 @@
-text.month-name,
-text.day-initial {
-  font-size: 10px;
-  fill: #aaaaaa;
-  font-family: Helvetica, arial, 'Open Sans', sans-serif
+.calendar-heatmap text.month-name,
+.calendar-heatmap text.day-initial {
+    font-size: .5em;
+    fill: #666;
+    font-family: "Helvetica Neue", Helvetica, Arial, 'Open Sans', sans-serif;
 }
-.day-cell {
-  border: 1px solid gray;
+.calendar-heatmap .day-cell:hover {
+    stroke: #555;
+    stroke-width: 1px;
 }
-rect.day-cell:hover {
-  stroke: #555555;
-  stroke-width: 1px;
+.calendar-heatmap-tooltip {
+    position: absolute;
+    z-index: 9999;
+    padding: 0.75em;
+    margin-bottom: 1em;
+    color: #BBB;
+    font-size: .75em;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 3px;
+    text-align: center;
 }
-.cell-tooltip {
-  position: absolute;
-  z-index: 9999;
-  padding: 5px 9px;
-  color: #bbbbbb;
-  font-size: 12px;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 3px;
-  text-align: center;
-}
-.cell-tooltip > span {
-  font-family: Helvetica, arial, 'Open Sans', sans-serif
+.calendar-heatmap-tooltip > span {
+    color: white;
+    font-size: 0.75em;
+    font-family: "Helvetica Neue", Helvetica, Arial, 'Open Sans', sans-serif;
 }
