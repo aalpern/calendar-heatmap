@@ -13,7 +13,7 @@ function calendarHeatmap() {
   var endDate = today;
   var startDate = moment().startOf('day').subtract(1, 'year').toDate();
   var data = [];
-	var colorRange = ['#D8E6E7', '#218380'];
+  var colorRange = ['#D8E6E7', '#218380'];
   var tooltipEnabled = true;
 
   // setters and getters
@@ -60,7 +60,7 @@ function calendarHeatmap() {
 
     // TODO: add legend
     var color = d3.scale.linear().range(chart.colorRange())
-      .domain([0, max]);
+                .domain([0, max]);
 
     var tooltip;
     var dayRects;
@@ -69,69 +69,69 @@ function calendarHeatmap() {
 
     function drawChart() {
       var svg = d3.select(chart.selector())
-        .append('svg')
-        .attr('width', width)
-        .attr('class', 'calendar-heatmap')
-        .attr('height', height)
-        .style('padding', '36px');
+                .append('svg')
+                .attr('width', width)
+                .attr('class', 'calendar-heatmap')
+                .attr('height', height)
+                .style('padding', '36px');
 
       dayRects = svg.selectAll('.day-cell')
-        .data(dateRange);  //  array of days for the last yr
+                 .data(dateRange);  //  array of days for the last yr
 
       dayRects.enter().append('rect')
-        .attr('class', 'day-cell')
-        .attr('width', SQUARE_LENGTH)
-        .attr('height', SQUARE_LENGTH)
-        .attr('fill', 'gray')
-        .attr('x', function (d, i) {
-          var cellDate = moment(d);
-          var result = cellDate.week() - firstDate.week() + (firstDate.weeksInYear() * (cellDate.weekYear() - firstDate.weekYear()));
-          return result * (SQUARE_LENGTH + SQUARE_PADDING);
-        })
-        .attr('y', function (d, i) { return MONTH_LABEL_PADDING + d.getDay() * (SQUARE_LENGTH + SQUARE_PADDING); });
+      .attr('class', 'day-cell')
+      .attr('width', SQUARE_LENGTH)
+      .attr('height', SQUARE_LENGTH)
+      .attr('fill', 'gray')
+      .attr('x', function (d, i) {
+        var cellDate = moment(d);
+        var result = cellDate.week() - firstDate.week() + (firstDate.weeksInYear() * (cellDate.weekYear() - firstDate.weekYear()));
+        return result * (SQUARE_LENGTH + SQUARE_PADDING);
+      })
+      .attr('y', function (d, i) { return MONTH_LABEL_PADDING + d.getDay() * (SQUARE_LENGTH + SQUARE_PADDING); });
 
       if(tooltipEnabled) {
         dayRects.on('mouseover', function (d, i) {
-            tooltip = d3.select('body')
-              .append('div')
-              .html(tooltipHTMLForDate(d))
-              .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH; })
-              .style('top', function () { return d.getDay() * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 3; });
+          tooltip = d3.select('body')
+                    .append('div')
                     .attr('class', 'calendar-heatmap-tooltip')
+                    .html(tooltipHTMLForDate(d))
+                    .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH; })
+                    .style('top', function () { return d.getDay() * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 3; });
         })
         .on('mouseout', function (d, i) {
-            tooltip.remove();
+          tooltip.remove();
         });
       }
 
       dayRects.exit().remove();
       var monthLabels = svg.selectAll('.month')
-          .data(monthRange)
-          .enter().append('text')
-          .attr('class', 'month-name')
-          .style()
-          .text(function (d) {
-            return months[d.getMonth()];
-          })
-          .attr('x', function (d, i) {
-            var matchIndex = 0;
-            dateRange.find(function (element, index) {
-              matchIndex = index;
-              return moment(d).isSame(element, 'month') && moment(d).isSame(element, 'year');
-            });
+                        .data(monthRange)
+                        .enter().append('text')
+                        .attr('class', 'month-name')
+                        .style()
+                        .text(function (d) {
+                          return months[d.getMonth()];
+                        })
+                        .attr('x', function (d, i) {
+                          var matchIndex = 0;
+                          dateRange.find(function (element, index) {
+                            matchIndex = index;
+                            return moment(d).isSame(element, 'month') && moment(d).isSame(element, 'year');
+                          });
 
-            return Math.floor(matchIndex / 7) * (SQUARE_LENGTH + SQUARE_PADDING);
-          })
-          .attr('y', 0);  // fix these to the top
+                          return Math.floor(matchIndex / 7) * (SQUARE_LENGTH + SQUARE_PADDING);
+                        })
+                        .attr('y', 0);  // fix these to the top
 
       days.forEach(function (day, index) {
         if (index % 2) {
           svg.append('text')
-            .attr('class', 'day-initial')
-            .attr('transform', 'translate(-8,' + (SQUARE_LENGTH + SQUARE_PADDING) * (index + 1) + ')')
-            .style('text-anchor', 'middle')
-            .attr('dy', '2')
-            .text(day);
+          .attr('class', 'day-initial')
+          .attr('transform', 'translate(-8,' + (SQUARE_LENGTH + SQUARE_PADDING) * (index + 1) + ')')
+          .style('text-anchor', 'middle')
+          .attr('dy', '2')
+          .text(day);
         }
       });
     }
