@@ -2,7 +2,7 @@
 function calendarHeatmap() {
   // defaults
   var width = 750;
-  var height = 310;
+  var height = 90;
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   var selector = 'body';
@@ -73,7 +73,7 @@ function calendarHeatmap() {
                 .attr('width', width)
                 .attr('class', 'calendar-heatmap')
                 .attr('height', height)
-                .style('padding', '36px');
+                .style('padding', '1em');
 
       dayRects = svg.selectAll('.day-cell')
                  .data(dateRange);  //  array of days for the last yr
