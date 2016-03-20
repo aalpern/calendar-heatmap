@@ -13,7 +13,7 @@ function calendarHeatmap() {
   var endDate = today;
   var startDate = moment().startOf('day').subtract(1, 'year').toDate();
   var data = [];
-  var colorRange = ['#D8E6E7', '#218380'];
+  var colorRange = ['#e6e6e6', '#218083'];
   var tooltipEnabled = true;
 
   // setters and getters

@@ -15,7 +15,9 @@
          var chartData = d3.time.days(yearAgo, now).map(function (dateElement) {
              return {
                  date: dateElement,
-                 count: (dateElement.getDay() !== 0 && dateElement.getDay() !== 6) ? Math.floor(Math.random() * 60) : Math.floor(Math.random() * 10)
+                 count: (dateElement.getDay() !== 0 && dateElement.getDay() !== 6)
+                     ? Math.floor(Math.random() * 60)
+                     : 0
              };
          });
 
