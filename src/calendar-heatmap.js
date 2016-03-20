@@ -9,8 +9,9 @@ function calendarHeatmap() {
   var SQUARE_LENGTH = 11;
   var SQUARE_PADDING = 2;
   var MONTH_LABEL_PADDING = 6;
-  var now = moment().endOf('day').toDate();
-  var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
+  var today = moment().endOf('day').toDate();
+  var endDate = today;
+  var startDate = moment().startOf('day').subtract(1, 'year').toDate();
   var data = [];
 	var colorRange = ['#D8E6E7', '#218380'];
   var tooltipEnabled = true;
@@ -28,7 +29,14 @@ function calendarHeatmap() {
     return chart;
   };
 
-	chart.colorRange = function (value) {
+  chart.dateRange = function(start, end) {
+    if (!arguments.length) { return [startDate, endDate]; }
+    startDate = start;
+    endDate = end || today;
+    return chart;
+  }
+
+  chart.colorRange = function (value) {
     if (!arguments.length) { return colorRange; }
     colorRange = value;
     return chart;
@@ -44,8 +52,8 @@ function calendarHeatmap() {
 
     d3.selectAll('.calendar-heatmap').remove(); // remove the existing chart, if it exists
 
-    var dateRange = d3.time.days(yearAgo, now);
-    var monthRange = d3.time.months(moment(yearAgo).startOf('month').toDate(), now); // it ignores the first month if the 1st date is after the start of the month
+    var dateRange  = d3.time.days(startDate, endDate);
+    var monthRange = d3.time.months(moment(startDate).startOf('month').toDate(), endDate); // it ignores the first month if the 1st date is after the start of the month
     var firstDate = moment(dateRange[0]);
 
     var max = d3.max(chart.data(), function (d) { return d.count; });
